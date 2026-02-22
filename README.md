@@ -43,7 +43,6 @@ mvn exec:java "-Dexec.mainClass=top.kunkun.mydb.client.Launcher"
 
 会启动一个交互式命令行，就可以在这里输入类 SQL 语法，回车会发送语句到服务，并输出执行的结果。
 
-```markdown
 ## 支持的 SQL 语法
 
 MyDB 包含一个简易的 SQL 解析器，支持基础的 DDL（数据定义语言）、DML（数据操纵语言）以及事务控制语句。
@@ -173,4 +172,4 @@ delete from student where name = "kunkun"
 
 ```
 
-```
+...
