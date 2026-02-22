@@ -62,7 +62,7 @@ public class ParserTest {
 
     @Test
     public void testInsert() throws Exception {
-        String stat = "insert into student values 5 \"Guo Ziyang\" 22";
+        String stat = "insert into student values 5 \"kunkun\" 22";
         Object res = Parser.Parse(stat.getBytes());
         Insert insert = (Insert)res;
         Gson gson = new Gson();
@@ -73,7 +73,7 @@ public class ParserTest {
 
     @Test
     public void testDelete() throws Exception {
-        String stat = "delete from student where name = \"Guo Ziyang\"";
+        String stat = "delete from student where name = \"kunkun\"";
         Object res = Parser.Parse(stat.getBytes());
         Delete delete = (Delete)res;
         Gson gson = new Gson();
@@ -95,7 +95,7 @@ public class ParserTest {
 
     @Test
     public void testUpdate() throws Exception {
-        String stat = "update student set name = \"GZY\" where id = 5";
+        String stat = "update student set name = \"KK\" where id = 5";
         Object res = Parser.Parse(stat.getBytes());
         Update update = (Update)res;
         Gson gson = new Gson();
