@@ -43,81 +43,134 @@ mvn exec:java "-Dexec.mainClass=top.kunkun.mydb.client.Launcher"
 
 会启动一个交互式命令行，就可以在这里输入类 SQL 语法，回车会发送语句到服务，并输出执行的结果。
 
-1. 事务控制 (Transaction Control)
+```markdown
+## 支持的 SQL 语法
+
+MyDB 包含一个简易的 SQL 解析器，支持基础的 DDL（数据定义语言）、DML（数据操纵语言）以及事务控制语句。
+
+> **注意：** > 1. 语句暂不支持以分号（`;`）结尾。
+> 2. 字符串类型的值请使用双引号 `"` 或单引号 `'` 括起来。
+
+### 1. 事务控制 (Transaction Control)
+
 MyDB 支持两种隔离级别：读提交（Read Committed）和可重复读（Repeatable Read）。
 
-开启事务
+* **开启事务**
+    * 默认开启（读提交）：`begin`
+    * 显式指定读提交：`begin isolation level read committed`
+    * 显式指定可重复读：`begin isolation level repeatable read`
+* **提交事务**：`commit`
+* **回滚事务**：`abort`
 
-默认开启（读提交）：begin
+### 2. 数据定义语言 (DDL)
 
-显式指定读提交：begin isolation level read committed
+#### 创建表 (CREATE TABLE)
+创建表时可以同时指定字段类型并创建索引。支持的数据类型有：`int32`, `int64`, `string`。
 
-显式指定可重复读：begin isolation level repeatable read
-
-提交事务：commit
-
-回滚事务：abort
-
-2. 数据定义语言 (DDL)
-创建表 (CREATE TABLE)
-创建表时可以同时指定字段类型并创建索引。支持的数据类型有：int32, int64, string。
-语法：
-
-SQL
+**语法：**
+```sql
 create table <表名> <字段名1> <类型1>, <字段名2> <类型2>, ... (index <索引字段1> <索引字段2> ...)
-示例：
 
-SQL
+```
+
+**示例：**
+
+```sql
 create table student id int32, name string, uid int64, (index name id uid)
-删除表 (DROP TABLE)
-语法：
 
-SQL
+```
+
+#### 删除表 (DROP TABLE)
+
+**语法：**
+
+```sql
 drop table <表名>
-查看所有表 (SHOW)
+
+```
+
+#### 查看所有表 (SHOW)
+
 显示当前数据库中所有的表信息。
-语法：
 
-SQL
+**语法：**
+
+```sql
 show
-3. 数据操纵语言 (DML)
-条件过滤（Where 子句）支持的基础逻辑运算符为：and, or；比较运算符为：=, >, <。
 
-插入数据 (INSERT)
-语法：
+```
 
-SQL
+### 3. 数据操纵语言 (DML)
+
+条件过滤（Where 子句）支持的基础逻辑运算符为：`and`, `or`；比较运算符为：`=`, `>`, `<`。
+
+#### 插入数据 (INSERT)
+
+**语法：**
+
+```sql
 insert into <表名> values <值1> <值2> ...
-示例：
 
-SQL
+```
+
+**示例：**
+
+```sql
 insert into student values 5 "kunkun" 22
-查询数据 (SELECT)
-支持查询特定字段或使用 * 查询所有字段。
-语法：
 
-SQL
+```
+
+#### 查询数据 (SELECT)
+
+支持查询特定字段或使用 `*` 查询所有字段。
+
+**语法：**
+
+```sql
 select * from <表名> [where <条件>]
 select <字段1>, <字段2> from <表名> [where <条件>]
-示例：
 
-SQL
+```
+
+**示例：**
+
+```sql
 select name, id from student where id > 1 and id < 4
-更新数据 (UPDATE)
-语法：
 
-SQL
+```
+
+#### 更新数据 (UPDATE)
+
+**语法：**
+
+```sql
 update <表名> set <字段名> = <新值> [where <条件>]
-示例：
 
-SQL
+```
+
+**示例：**
+
+```sql
 update student set name = "kunkun" where id = 5
-删除数据 (DELETE)
-语法：
 
-SQL
+```
+
+#### 删除数据 (DELETE)
+
+**语法：**
+
+```sql
 delete from <表名> [where <条件>]
-示例：
 
-SQL
+```
+
+**示例：**
+
+```sql
 delete from student where name = "kunkun"
+
+```
+
+```
+
+```
